@@ -10,7 +10,7 @@ export default function ProductCard({ product }) {
     <div
       className="flex flex-col items-start gap-0.5 w-full cursor-pointer"
       onClick={() => {
-        router.push("/product" + product.id);
+        router.push("/product/" + product._id);
         scrollTo(0, 0);
       }}
     >

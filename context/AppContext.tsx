@@ -14,9 +14,22 @@ export const AppContextProvider = (props) => {
   const router = useRouter();
   const [isSeller, setIsSeller] = useState(true);
   const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState({});
 
   const fetchProductsData = async () => {
     setProducts(productsDummyData);
+  };
+
+  const addToCart = (itemId) => {
+    let cartData = structuredClone(cartItems);
+
+    if (cartData[itemId]) {
+      cartData[itemId] += 1;
+    } else {
+      cartData[itemId] = 1;
+    }
+
+    setCartItems(cartData);
   };
 
   useEffect(() => {
@@ -31,6 +44,9 @@ export const AppContextProvider = (props) => {
     products,
     setProducts,
     fetchProductsData,
+    cartItems,
+    setCartItems,
+    addToCart,
   };
 
   return (
