@@ -3,9 +3,11 @@
 import { assets } from "@/assets/assets";
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({ product }) {
-  const { currency, router } = useAppContext();
+  const { currency } = useAppContext();
+  const router = useRouter();
   return (
     <div
       className="flex flex-col items-start gap-0.5 w-full cursor-pointer"

@@ -5,14 +5,13 @@ import ProductCard from "@/components/ProductCard";
 import { useAppContext } from "@/context/AppContext";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
   const { id } = useParams();
-  const { products, router, addToCart } = useAppContext();
-
-  console.log(products);
+  const router = useRouter();
+  const { products, addToCart } = useAppContext();
 
   const [mainImage, setMainImage] = useState(null);
   const [productData, setProductData] = useState(null);
@@ -26,7 +25,9 @@ export default function Page() {
   };
 
   useEffect(() => {
-    fetchProductData();
+    if (products.length > 0) {
+      fetchProductData();
+    }
   }, [id, products]);
 
   return (
@@ -134,8 +135,8 @@ export default function Page() {
                   Add to Cart
                 </button>
                 <button
-                  onClick={() => {
-                    addToCart(productData._id);
+                  onClick={async () => {
+                    await addToCart(productData._id);
                     router.push("/cart");
                   }}
                   className="w-full py-3.5 bg-orange-500 text-white hover:bg-orange-600 transition"
