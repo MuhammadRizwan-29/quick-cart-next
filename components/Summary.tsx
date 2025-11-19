@@ -37,7 +37,10 @@ export default function Summary() {
             Select Address
           </label>
           <div className="relative inline-block w-full text-sm border">
-            <button className="peer w-full text-left px-4 py-2 bg-white text-gray-700 focus:outline-none">
+            <button
+              className="peer w-full text-left px-4 py-2 bg-white text-gray-700 focus:outline-none"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
               <span>
                 {selectedAddress
                   ? `${selectedAddress.fullName}, ${selectedAddress.area},  ${selectedAddress.city}, ${selectedAddress.state}`

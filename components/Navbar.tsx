@@ -3,9 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { assets } from "@/assets/assets";
 import { useAppContext } from "@/context/AppContext";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
-  const { isSeller, router } = useAppContext();
+  const router = useRouter();
+  const { isSeller } = useAppContext();
 
   return (
     <header className="container mx-auto py-5 px-3 flex items-center justify-between border-b border-gray-300 text-gray-700">
