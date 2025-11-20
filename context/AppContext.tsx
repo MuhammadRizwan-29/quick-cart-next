@@ -2,6 +2,7 @@
 
 import { productsDummyData, userDummyData } from "@/assets/assets";
 import { useUser, UserResource } from "@clerk/nextjs";
+
 import {
   createContext,
   useContext,

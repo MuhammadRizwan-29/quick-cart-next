@@ -1,13 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { assets } from "@/assets/assets";
+import { assets, BagIcon, BoxIcon, CartIcon, HomeIcon } from "@/assets/assets";
 import { useAppContext } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
+import { useClerk, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   const router = useRouter();
-  const { isSeller } = useAppContext();
+  const { isSeller, user } = useAppContext();
+  const { openSignIn } = useClerk();
 
   return (
     <header className="container mx-auto py-5 px-3 flex items-center justify-between border-b border-gray-300 text-gray-700">
@@ -74,9 +76,33 @@ export default function Navbar() {
           width={16}
           height={16}
         />
-        <button className="flex items-center gap-2 hover:text-gray-900 transition">
-          <Image src={assets.user_icon} alt="user icon" />
-        </button>
+        {user ? (
+          <>
+            <UserButton>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="Cart"
+                  labelIcon={<CartIcon />}
+                  onClick={() => router.push("/cart")}
+                />
+              </UserButton.MenuItems>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="My Orders"
+                  labelIcon={<BagIcon />}
+                  onClick={() => router.push("/my-orders")}
+                />
+              </UserButton.MenuItems>
+            </UserButton>
+          </>
+        ) : (
+          <button
+            onClick={openSignIn}
+            className="flex items-center gap-2 hover:text-gray-900 transition cursor-pointer"
+          >
+            <Image src={assets.user_icon} alt="user icon" />
+          </button>
+        )}
       </ul>
 
       <div className="flex items-center md:hidden gap-3">
@@ -88,10 +114,47 @@ export default function Navbar() {
             Seller Dashboard
           </button>
         )}
-        <button className="flex items-center gap-2 hover:text-gray-900 transition">
-          <Image src={assets.user_icon} alt="user icon" />
-          Account
-        </button>
+        {user ? (
+          <>
+            <UserButton>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="Home"
+                  labelIcon={<HomeIcon />}
+                  onClick={() => router.push("/")}
+                />
+              </UserButton.MenuItems>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="Products"
+                  labelIcon={<BoxIcon />}
+                  onClick={() => router.push("/all-products")}
+                />
+              </UserButton.MenuItems>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="Cart"
+                  labelIcon={<CartIcon />}
+                  onClick={() => router.push("/cart")}
+                />
+              </UserButton.MenuItems>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="My Orders"
+                  labelIcon={<BagIcon />}
+                  onClick={() => router.push("/my-orders")}
+                />
+              </UserButton.MenuItems>
+            </UserButton>
+          </>
+        ) : (
+          <button
+            onClick={openSignIn}
+            className="flex items-center gap-2 hover:text-gray-900 transition cursor-pointer"
+          >
+            <Image src={assets.user_icon} alt="user icon" />
+          </button>
+        )}
       </div>
     </header>
   );
