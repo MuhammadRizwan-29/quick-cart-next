@@ -1,29 +1,93 @@
 "use client";
-import { productsDummyData, userDummyData } from "@/assets/assets";
-import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
 
-export const AppContext = createContext();
+import { productsDummyData, userDummyData } from "@/assets/assets";
+import { useUser, UserResource } from "@clerk/nextjs";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
+
+// -------------------- TYPES --------------------
+
+export interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  offerPrice: number;
+  [key: string]: any; // Allows extra fields
+}
+
+export interface UserData {
+  name: string;
+  email: string;
+  [key: string]: any;
+}
+
+interface AppContextType {
+  currency: string | undefined;
+
+  isSeller: boolean;
+  setIsSeller: (value: boolean) => void;
+
+  products: Product[];
+  setProducts: (p: Product[]) => void;
+  fetchProductsData: () => Promise<void>;
+
+  cartItems: Record<string, number>;
+  setCartItems: (items: Record<string, number>) => void;
+
+  addToCart: (itemId: string) => Promise<void>;
+  updateCartQuantity: (itemId: string, quantity: number) => Promise<void>;
+
+  getCartCount: () => number;
+  getCartAmount: () => number;
+
+  userData: UserData | false;
+  setUserData: (data: UserData | false) => void;
+  fetchUserData: () => Promise<void>;
+
+  user: UserResource | null;
+}
+
+// -------------------- CONTEXT --------------------
+
+export const AppContext = createContext<AppContextType | null>(null);
 
 export const useAppContext = () => {
-  return useContext(AppContext);
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext must be used inside AppContextProvider");
+  }
+  return context;
 };
 
-export const AppContextProvider = (props) => {
+// -------------------- PROVIDER --------------------
+
+interface ProviderProps {
+  children: ReactNode;
+}
+
+export const AppContextProvider = ({ children }: ProviderProps) => {
   const currency = process.env.NEXT_PUBLIC_CURRENCY;
-  // const router = useRouter();
 
-  const [isSeller, setIsSeller] = useState(true);
-  const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState({});
-  const [userData, setUserData] = useState(false);
+  const { user } = useUser();
 
+  const [isSeller, setIsSeller] = useState<boolean>(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<Record<string, number>>({});
+  const [userData, setUserData] = useState<UserData | false>(false);
+
+  // Fetch products
   const fetchProductsData = async () => {
     setProducts(productsDummyData);
   };
 
-  const addToCart = async (itemId) => {
-    let cartData = structuredClone(cartItems);
+  // Add item to cart
+  const addToCart = async (itemId: string) => {
+    const cartData = { ...cartItems };
 
     if (cartData[itemId]) {
       cartData[itemId] += 1;
@@ -34,41 +98,39 @@ export const AppContextProvider = (props) => {
     setCartItems(cartData);
   };
 
-  const updateCartQuantity = async (itemId, quantity) => {
-    let cartData = structuredClone(cartItems);
+  // Update item quantity
+  const updateCartQuantity = async (itemId: string, quantity: number) => {
+    const cartData = { ...cartItems };
 
     if (quantity === 0) {
       delete cartData[itemId];
     } else {
       cartData[itemId] = quantity;
     }
+
     setCartItems(cartData);
   };
 
+  // Total items in cart
   const getCartCount = () => {
-    let totalCount = 0;
-
-    for (const items in cartItems) {
-      if (cartItems[items] > 0) {
-        totalCount += cartItems[items];
-      }
-    }
-    return totalCount;
+    return Object.values(cartItems).reduce((sum, qty) => sum + qty, 0);
   };
 
+  // Total amount
   const getCartAmount = () => {
-    let totalAmount = 0;
+    let total = 0;
 
-    for (const items in cartItems) {
-      let itemInfo = products.find((product) => product._id === items);
+    for (const id in cartItems) {
+      const item = products.find((p) => p._id === id);
+      if (!item) continue;
 
-      if (cartItems[items] > 0) {
-        totalAmount += itemInfo.offerPrice * cartItems[items];
-      }
+      total += item.offerPrice * cartItems[id];
     }
-    return Math.floor(totalAmount * 100) / 100;
+
+    return Math.round(total * 100) / 100;
   };
 
+  // Get user data
   const fetchUserData = async () => {
     setUserData(userDummyData);
   };
@@ -81,25 +143,30 @@ export const AppContextProvider = (props) => {
     fetchUserData();
   }, []);
 
-  const value = {
+  const value: AppContextType = {
     currency,
+
     isSeller,
     setIsSeller,
+
     products,
     setProducts,
     fetchProductsData,
+
     cartItems,
     setCartItems,
     addToCart,
     updateCartQuantity,
+
     getCartCount,
     getCartAmount,
+
     userData,
     setUserData,
     fetchUserData,
+
+    user: user ?? null,
   };
 
-  return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
