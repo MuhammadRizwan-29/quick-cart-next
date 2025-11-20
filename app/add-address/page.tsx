@@ -15,7 +15,7 @@ export default function Page() {
     state: "",
   });
 
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
   };
 
