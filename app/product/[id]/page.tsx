@@ -77,26 +77,36 @@ export default function Page() {
                       src={assets.star_icon}
                       alt="review star icon"
                       className="w-4 h-4"
+                      width={16}
+                      height={16}
                     />
                     <Image
                       src={assets.star_icon}
                       alt="review star icon"
                       className="w-4 h-4"
+                      width={16}
+                      height={16}
                     />
                     <Image
                       src={assets.star_icon}
                       alt="review star icon"
                       className="w-4 h-4"
+                      width={16}
+                      height={16}
                     />
                     <Image
                       src={assets.star_icon}
                       alt="review star icon"
                       className="w-4 h-4"
+                      width={16}
+                      height={16}
                     />
                     <Image
                       src={assets.star_dull_icon}
                       alt="review star icon"
                       className="w-4 h-4"
+                      width={16}
+                      height={16}
                     />
                   </div>
                   <p>{4.5}</p>

@@ -80,6 +80,9 @@ export default function Slider() {
                 src={slide.imgSrc}
                 className="md:w-72 w-48"
                 alt={`Slide ${index + 1}`}
+                width={1280}
+                height={720}
+                loading="eager"
               />
             </div>
           </div>

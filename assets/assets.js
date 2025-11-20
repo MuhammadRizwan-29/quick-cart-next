@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import logo from "./logo.svg";
 import search_icon from "./search_icon.svg";

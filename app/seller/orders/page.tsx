@@ -40,6 +40,8 @@ export default function Page() {
                       src={assets.order_icon}
                       alt="Order Box"
                       className="max-w-16 max-h-16 object-cover"
+                      width={16}
+                      height={16}
                     />
                     <p className="flex flex-col gap-3">
                       <span className="font-medium">

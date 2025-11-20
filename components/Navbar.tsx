@@ -15,7 +15,7 @@ export default function Navbar() {
     <header className="container mx-auto py-5 px-3 flex items-center justify-between border-b border-gray-300 text-gray-700">
       <Link href="/">
         <Image
-          src={assets.logo}
+          src={assets.logo || null}
           alt="Logo"
           width={32}
           height={32}
@@ -71,7 +71,7 @@ export default function Navbar() {
 
       <ul className="hidden md:flex items-center gap-4">
         <Image
-          src={assets.search_icon}
+          src={assets.search_icon || null}
           alt="Search icon"
           width={16}
           height={16}
@@ -100,7 +100,7 @@ export default function Navbar() {
             onClick={openSignIn}
             className="flex items-center gap-2 hover:text-gray-900 transition cursor-pointer"
           >
-            <Image src={assets.user_icon} alt="user icon" />
+            <Image src={assets.user_icon || null} alt="user icon" />
           </button>
         )}
       </ul>
@@ -152,7 +152,7 @@ export default function Navbar() {
             onClick={openSignIn}
             className="flex items-center gap-2 hover:text-gray-900 transition cursor-pointer"
           >
-            <Image src={assets.user_icon} alt="user icon" />
+            <Image src={assets.user_icon || null} alt="user icon" />
           </button>
         )}
       </div>

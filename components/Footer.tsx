@@ -7,7 +7,13 @@ export default function Footer() {
     <footer>
       <div className="container mx-auto px-5 flex flex-col md:flex-row items-start justify-center gap-10 text-gray-500">
         <div className="w-4/5">
-          <Image src={assets.logo} alt="Footer Logo" className="w-28 md:w-32" />
+          <Image
+            src={assets.logo}
+            alt="Footer Logo"
+            width={32}
+            height={32}
+            className="w-28 md:w-32"
+          />
           <p className="mt-6 text-sm">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text

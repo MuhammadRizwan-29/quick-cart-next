@@ -9,6 +9,8 @@ export default function CTABanner() {
           src={assets.jbl_soundbox_image}
           alt="JBL Sandbox Speakers"
           className="max-w-56"
+          width={1280}
+          height={1080}
         />
         <div className="flex flex-col items-center justify-center text-center space-y-2 py-4 px-4 md:px-0">
           <h2 className="text-2xl md:text-3xl font-semibold max-w-[290px]">
@@ -30,6 +32,8 @@ export default function CTABanner() {
           src={assets.md_controller_image}
           alt="Controller Icon"
           className="hidden md:block max-w-80 -mt-8 lg:mt-0"
+          width={1280}
+          height={1080}
         />
         <Image
           src={assets.sm_controller_image}

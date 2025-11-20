@@ -55,6 +55,7 @@ export default function ProductCard({ product }) {
                 height={12}
                 alt="Stars"
                 key={index}
+                className="w-4 h-4"
               />
             );
           })}
