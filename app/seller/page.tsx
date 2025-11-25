@@ -2,17 +2,17 @@
 
 import { assets } from "@/assets/assets";
 import Image from "next/image";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function Page() {
-  const [files, setFiles] = useState([]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Earphone");
-  const [price, setPrice] = useState("");
-  const [offerPrice, setOfferPrice] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [category, setCategory] = useState<string>("Earphone");
+  const [price, setPrice] = useState<string>("");
+  const [offerPrice, setOfferPrice] = useState<string>("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (

@@ -9,18 +9,28 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  offerPrice: number;
+  image: string[];
+  category: string;
+}
+
 export default function Page() {
   const { id } = useParams();
   const router = useRouter();
   const { products, addToCart } = useAppContext();
 
-  const [mainImage, setMainImage] = useState(null);
-  const [productData, setProductData] = useState(null);
+  const [mainImage, setMainImage] = useState<string | null>(null);
+  const [productData, setProductData] = useState<Product | null>(null);
 
   const fetchProductData = () => {
     if (!products || products.length === 0) return;
 
-    const product = products.find((p) => p._id === id);
+    const product = products.find((p: Product) => p._id === id);
 
     setProductData(product);
   };

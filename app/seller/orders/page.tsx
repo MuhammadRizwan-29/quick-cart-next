@@ -6,14 +6,38 @@ import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+interface Product {
+  name: string;
+}
+
+interface OrderItem {
+  product: Product;
+  quantity: number;
+}
+
+interface Address {
+  fullName: string;
+  area: string;
+  city: string;
+  state: string;
+  phoneNumber: string;
+}
+
+interface Order {
+  items: OrderItem[];
+  amount: number;
+  address: Address;
+  date: string | number | Date;
+}
+
 export default function Page() {
   const { currency } = useAppContext();
 
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchSellerOrders = async () => {
-    setOrders(orderDummyData);
+    setOrders(orderDummyData as Order[]);
     setLoading(false);
   };
 
