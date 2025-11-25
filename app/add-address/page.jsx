@@ -5,17 +5,8 @@ import MainLayout from "@/components/MainLayout";
 import Image from "next/image";
 import { useState } from "react";
 
-interface Address {
-  fullName: string;
-  phoneNumber: string;
-  pincode: string;
-  area: string;
-  city: string;
-  state: string;
-}
-
 export default function Page() {
-  const [address, setAddress] = useState<Address>({
+  const [address, setAddress] = useState({
     fullName: "",
     phoneNumber: "",
     pincode: "",
@@ -24,7 +15,7 @@ export default function Page() {
     state: "",
   });
 
-  const onSubmitHandler = async (e: React.FormEvent) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
   };
 

@@ -42,7 +42,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/about-us"
+              href="/"
               className="hover:text-gray-900 transition-colors duration-150"
             >
               About Us
@@ -50,7 +50,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/contact"
+              href="/"
               className="hover:text-gray-900 transition-colors duration-150"
             >
               Contact

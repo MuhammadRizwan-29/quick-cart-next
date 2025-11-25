@@ -7,23 +7,14 @@ import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 
-interface Product {
-  _id: string;
-  name: string;
-  category: string;
-  price: number;
-  offerPrice: number;
-  image: string[];
-}
-
 export default function Page() {
   const router = useRouter();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchSellerProduct = async () => {
-    setProducts(productsDummyData as Product[]);
+    setProducts(productsDummyData);
     setLoading(false);
   };
 

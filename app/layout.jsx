@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { AppContextProvider } from "@/context/AppContext";
@@ -9,16 +8,12 @@ const outfit = Outfit({
   weight: ["300", "400", "500"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "QuickCart",
   description: "E-Commerce with Next.js ",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">

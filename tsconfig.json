@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/product/[id]/page.jsx", "app/seller/layout.jsx", "app/seller/page.jsx"  ],
+, "app/product/[id]/page.jsx", "app/seller/layout.jsx", "app/seller/page.jsx", "app/layout.jsx", "app/add-address/page.jsx", "app/seller/orders/page.jsx", "app/seller/product-list/page.jsx", "components/CTABanner.jsx", "components/FeaturedProduct.jsx", "components/Footer.jsx", "components/Loading.jsx", "components/MainLayout.jsx", "components/Navbar.jsx", "components/Summary.jsx", "components/Slider.jsx", "components/Products.jsx", "components/ProductCard.jsx", "components/seller/Navbar.jsx", "components/seller/Sidebar.jsx"  ],
   "exclude": ["node_modules"]
 }
