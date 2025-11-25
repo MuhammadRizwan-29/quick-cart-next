@@ -1,61 +1,11 @@
 "use client";
 
 import { productsDummyData, userDummyData } from "@/assets/assets";
-import { useUser, UserResource } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-// -------------------- TYPES --------------------
-
-export interface Product {
-  _id: string;
-  name: string;
-  price: number;
-  offerPrice: number;
-  [key: string]: any; // Allows extra fields
-}
-
-export interface UserData {
-  name: string;
-  email: string;
-  [key: string]: any;
-}
-
-interface AppContextType {
-  currency: string | undefined;
-
-  isSeller: boolean;
-  setIsSeller: (value: boolean) => void;
-
-  products: Product[];
-  setProducts: (p: Product[]) => void;
-  fetchProductsData: () => Promise<void>;
-
-  cartItems: Record<string, number>;
-  setCartItems: (items: Record<string, number>) => void;
-
-  addToCart: (itemId: string) => Promise<void>;
-  updateCartQuantity: (itemId: string, quantity: number) => Promise<void>;
-
-  getCartCount: () => number;
-  getCartAmount: () => number;
-
-  userData: UserData | false;
-  setUserData: (data: UserData | false) => void;
-  fetchUserData: () => Promise<void>;
-
-  user: UserResource | null;
-}
-
-// -------------------- CONTEXT --------------------
-
-export const AppContext = createContext<AppContextType | null>(null);
+export const AppContext = (createContext);
 
 export const useAppContext = () => {
   const context = useContext(AppContext);
@@ -65,21 +15,15 @@ export const useAppContext = () => {
   return context;
 };
 
-// -------------------- PROVIDER --------------------
-
-interface ProviderProps {
-  children: ReactNode;
-}
-
-export const AppContextProvider = ({ children }: ProviderProps) => {
+export const AppContextProvider = ({ children }) => {
   const currency = process.env.NEXT_PUBLIC_CURRENCY;
 
   const { user } = useUser();
 
-  const [isSeller, setIsSeller] = useState<boolean>(true);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [cartItems, setCartItems] = useState<Record<string, number>>({});
-  const [userData, setUserData] = useState<UserData | false>(false);
+  const [isSeller, setIsSeller] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState({});
+  const [userData, setUserData] = useState(false);
 
   // Fetch products
   const fetchProductsData = async () => {
@@ -87,7 +31,7 @@ export const AppContextProvider = ({ children }: ProviderProps) => {
   };
 
   // Add item to cart
-  const addToCart = async (itemId: string) => {
+  const addToCart = async (itemId) => {
     const cartData = { ...cartItems };
 
     if (cartData[itemId]) {
@@ -100,7 +44,7 @@ export const AppContextProvider = ({ children }: ProviderProps) => {
   };
 
   // Update item quantity
-  const updateCartQuantity = async (itemId: string, quantity: number) => {
+  const updateCartQuantity = async (itemId, quantity) => {
     const cartData = { ...cartItems };
 
     if (quantity === 0) {
@@ -144,7 +88,7 @@ export const AppContextProvider = ({ children }: ProviderProps) => {
     fetchUserData();
   }, []);
 
-  const value: AppContextType = {
+  const value = {
     currency,
 
     isSeller,
