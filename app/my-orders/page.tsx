@@ -31,7 +31,7 @@ interface Address {
   area: string;
   city: string;
   state: string;
-  amount: number;
+  amount?: number;
 }
 
 interface Order {
