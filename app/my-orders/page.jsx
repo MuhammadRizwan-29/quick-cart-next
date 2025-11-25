@@ -7,53 +7,10 @@ import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-interface Product {
-  _id: string;
-  userId: string;
-  name: string;
-  description: string;
-  price: number;
-  offerPrice: number;
-  image: string[];
-  category: string;
-  date: number;
-  __v: number;
-}
-
-interface OrderItem {
-  product: Product;
-  quantity: number;
-  _id: string;
-}
-
-interface Address {
-  _id: string;
-  userId: string;
-  fullName: string;
-  phoneNumber: string;
-  pincode: number;
-  area: string;
-  city: string;
-  state: string;
-  __v: number;
-}
-
-interface Order {
-  _id: string;
-  userId: string;
-  items: OrderItem[];
-  address: Address;
-  amount: number;
-  date: number;
-  __v: number;
-}
-
-// -------------------- COMPONENT --------------------
-
 export default function Page() {
   const { currency } = useAppContext();
 
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchOrders = async () => {
