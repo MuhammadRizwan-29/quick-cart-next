@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-export const AppContext = (createContext);
+export const AppContext = createContext();
 
 export const useAppContext = () => {
   const context = useContext(AppContext);
